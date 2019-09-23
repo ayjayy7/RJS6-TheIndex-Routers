@@ -1,19 +1,28 @@
-import React from "react";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-function BookRow(props) {
-  const book = props.book;
-  const authors = book.authors.map(author => (
-    <div key={author.id}>{author.name}</div>
-  ));
-  return (
-    <tr>
-      <td>{book.title}</td>
-      <td>{authors}</td>
-      <td>
-        <button className="btn" style={{ backgroundColor: book.color }} />
-      </td>
-    </tr>
-  );
+class BookRow extends Component {
+  render() {
+    const book = this.props.book;
+    return (
+      <tr>
+        <td>{book.title}</td>
+        <td>
+          {book.authors.map(author => (
+            <Link to={`/authors/${author.id}`}>
+              <div key={author.name}>{author.name}</div>
+            </Link>
+          ))}
+        </td>
+
+        <td>
+          <Link to={`/books/${book.color}`}>
+            <button className="btn" style={{ backgroundColor: book.color }} />
+          </Link>
+        </td>
+      </tr>
+    );
+  }
 }
 
 export default BookRow;
